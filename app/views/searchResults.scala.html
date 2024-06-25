@@ -1,0 +1,55 @@
+@import views.html.helper._
+@import play.api.mvc.Request
+@import play.api.data.Form
+
+@this()
+
+@(movieForm: Form[MovieModel], movies: Seq[MovieModel])(implicit request: Request[_], messages: Messages)
+
+@main("Welcome to Play") {
+    <h1>Fusion Movie Store</h1>
+    <section class="addNewItem">
+    @form(action = routes.MovieController.searchMovies(Some("" ), Some(0), Some(""), Some("")  )) {
+        @helper.inputText(movieForm("title"))
+        @helper.inputText(movieForm("year"))
+        @helper.inputText(movieForm("cast"))
+        @helper.inputText(movieForm("genres"))
+        <input id="search-movie-button" type="submit" value="Search Movie">
+        }
+    </section>
+
+    <br>
+    <br>
+    <br>
+
+    <section>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Year</th>
+                <th>Cast</th>
+                <th>Genres</th>
+            </tr>
+
+
+        @movies.map { movie =>
+            <tr>
+                <td>@movie.title</td>
+                <td>@movie.year</td>
+
+                <td>
+                @movie.cast.map {castMember =>
+                    <span>@castMember</span>
+                }
+                </td>
+
+                <td>
+                @movie.genres.map {genre =>
+                    <span>@genre</span>
+                }
+                </td>
+            </tr>
+        }
+        </table>
+    </section>
+}
