@@ -20,3 +20,7 @@ terraform apply
 
 ### Run App
 ``sbt run``
+
+### Architecture
+
+![Architecture](/architecture.png)
